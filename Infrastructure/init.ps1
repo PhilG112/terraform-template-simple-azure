@@ -22,6 +22,10 @@ if(!$PSScriptRoot){
 
 $RootPath = $PSScriptRoot
 $TerraformVariablesFile = Join-Path $RootPath "./variables.tf"
+$GitDir = Join-Path $RootPath ".git"
+
+Remove-Item $GitDir -Force -Recurse -ErrorAction SilentlyContinue
+Write-Host "Removed $GitDir"
 
 (Get-Content $TerraformVariablesFile).replace('[rg-name]', $ResourceGroupName) | Set-Content $TerraformVariablesFile
 Write-Host "Set Resource Group Name to $ResourceGroupName"
